@@ -61,6 +61,8 @@
         state: started
         enabled: yes
       become: yes
+      
+`anup@ubuntu-22042-108:~$ docker --version`
 
 <br>
 
@@ -98,6 +100,10 @@
         name: nginx
         state: restarted
       become: yes
+
+`anup@ubuntu-22042-108:~$ sudo systemctl status nginx.service `
+
+**http://192.168.56.108/80**
 
 <br>
 
@@ -144,6 +150,10 @@
         name: apache2
         state: restarted
       become: yes
+
+`anup@ubuntu-22042-108:~$ sudo systemctl status apache2.service `
+
+**http://192.168.56.108:81/**
 
 <br>
 
@@ -208,6 +218,12 @@
       become: yes
       listen: "Start Tomcat"
 
+`anup@ubuntu-22042-108:~$ cd /opt/apache-tomcat-9.0.79/bin/`
+
+`anup@ubuntu-22042-108:/opt/apache-tomcat-9.0.79/bin$ ./version.sh `
+
+**http://192.168.56.108:8080/**
+
 <br>
 
 ### Install Postgres, On Ubuntu
@@ -245,3 +261,5 @@
         name: postgresql
         state: restarted
         enabled: yes
+
+`anup@ubuntu-22042-108:~$ /usr/lib/postgresql/14/bin/postgres -V`
