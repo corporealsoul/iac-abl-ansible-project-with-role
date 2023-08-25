@@ -62,4 +62,40 @@
         enabled: yes
       become: yes
 
+<br>
+
+### Install NGNIX, On Ubuntu
+
+`[anup@rhel-92-104 ~]$ cd /etc/ansible/roles/`
+
+`[anup@rhel-92-104 roles]$ sudo ansible-galaxy init install_configure_nginx`
+
+`[anup@rhel-92-104 roles]$ ls -ltr`
+
+`[anup@rhel-92-104 roles]$ cd install_configure_nginx/`
+
+`[anup@rhel-92-104 install_configure_nginx]$ sudo nano ./tasks/main.yml`
+
+    ---
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      become: yes
+    
+    - name: Install NGINX
+      apt:
+        name: nginx
+        state: present
+      become: yes
+      notify:
+        - Restart NGINX
+
+`[anup@rhel-92-104 ~]$ sudo nano /etc/ansible/roles/install_configure_nginx/handlers/main.yml `
+
+    ---
+    - name: Restart NGINX
+      service:
+        name: nginx
+        state: restarted
+      become: yes
 
