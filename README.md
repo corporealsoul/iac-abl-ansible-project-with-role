@@ -263,3 +263,63 @@
         enabled: yes
 
 `anup@ubuntu-22042-108:~$ /usr/lib/postgresql/14/bin/postgres -V`
+
+<br>
+
+### Playbook,
+
+`[anup@rhel-92-104 tasks]$ cd /etc/ansible/playbooks`
+
+`[anup@rhel-92-104 playbooks]$ sudo nano install_configure_playbook.yml`
+
+
+    ---
+    - name: Install Docker on Ubuntu using Ansible role
+      hosts: worker
+      become: yes
+      roles:
+        - install_configure_docker
+    
+    - name: Install NGINX on Ubuntu using Ansible role
+      hosts: worker
+      become: yes
+      roles:
+        - install_configure_nginx
+      handlers:
+        - include_tasks: roles/install_configure_nginx/handlers/main.yml
+    
+    - name: Install Apache2 on Ubuntu using Ansible Galaxy role
+      hosts: worker
+      become: yes
+      roles:
+        - install_configure_apache
+      handlers:
+        - include_tasks: roles/install_configure_apache/handlers/main.yml
+    
+    - name: Install and Configure Tomcat using Ansible role
+      hosts: worker
+      become: yes
+      roles:
+        - install_configure_tomcat
+      handlers:
+        - include_tasks: roles/install_configure_tomcat/handlers/main.yml
+    
+    - name: Install PostgreSQL on Ubuntu
+      hosts: worker
+      become: yes
+      roles:
+        - install_configure_postgres
+      handlers:
+        - include_tasks: roles/install_configure_postgres/handlers/main.yml
+
+
+
+`[anup@rhel-92-104 playbooks]$ ansible-playbook --syntax-check install_configure_playbook.yml `
+
+`[anup@rhel-92-104 playbooks]$ ansible-playbook --check install_configure_playbook.yml`
+
+`[anup@rhel-92-104 playbooks]$ ansible-playbook install_configure_playbook.yml`
+
+`[anup@rhel-92-104 playbooks]$ ansible-playbook install_configure_playbook.yml -vvv`
+
+<br>
